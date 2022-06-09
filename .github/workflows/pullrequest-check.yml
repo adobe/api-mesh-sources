@@ -26,8 +26,7 @@ jobs:
       - name: List all changed files
         run: |
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            pwd
-            cd scripts
-            go run $file
+            pwd            
+            go run ./scripts/validate_struct.go $file
             echo "$file was changed"
           done
