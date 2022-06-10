@@ -1,4 +1,4 @@
-name: Pull Request check
+name: Connector Validation
 
 defaults:
   run:
@@ -11,7 +11,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Test changed-files
+    name: Validate connector strucure
     steps:
       - uses: actions/checkout@v3
         with:
