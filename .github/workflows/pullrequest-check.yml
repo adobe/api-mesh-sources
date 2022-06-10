@@ -24,12 +24,8 @@ jobs:
         uses: tj-actions/changed-files@v22.2
 
       - name: List all changed files
-        run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            pwd            
+        run: |              
             cd ./scripts
             pwd
-            go run validate_struct.go ../$file
-            cd ../
-            echo "$file was changed"
-          done
+            go run validate_struct.go ${{ steps.changed-files.outputs.all_changed_files }}
+            cd ../          
