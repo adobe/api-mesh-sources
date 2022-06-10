@@ -1,0 +1,30 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "connector-schema",
+    "description": "A schema for the Adobe Connector",
+    "type": "object",
+    "properties": {
+        "name": {
+          "type": "string",
+          "description": "The unique connector name"
+        },
+        "author": {
+          "type": "string",
+          "description": "The name of the author"
+        },
+        "version": {
+          "type": "string",
+          "description": "The version of the connector"
+        },
+        "description": {
+          "type": "string",
+          "description": "A description of the connector"
+        },
+        "provider": {
+          "type": "object",
+          "description": "The connector source"
+        }
+    },
+    "required":["name", "author", "version", "description", "provider"],
+    "additionalProperties" : false
+  }

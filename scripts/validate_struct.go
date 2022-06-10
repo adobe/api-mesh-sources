@@ -1,12 +1,10 @@
 package main
 
 import (
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
 	"os"
 
-	"github.com/go-playground/validator/v10"
+	"github.com/xeipuuv/gojsonschema"
 )
 
 const (
@@ -14,31 +12,25 @@ const (
 	success
 )
 
-type Connector struct {
-	Name        string      `json:"name" validate:"required"`
-	Version     string      `json:"version" validate:"required,semver"`
-	Description string      `json:"description" validate:"required"`
-	Author      string      `json:"author" validate:"required"`
-	Provider    interface{} `json:"provider" validate:"required"`
-}
-
 func main() {
-	args := os.Args[1:]
-	validate := validator.New()
-	fmt.Println(args)
+	args := os.Args[3:]
+	schema := os.Args[1]
+	prefix := os.Args[2]
 
 	if len(args) != 0 {
 		for _, v := range args {
-			file, _ := ioutil.ReadFile(v)
-			connector := &Connector{}
-			err := json.Unmarshal(file, connector)
+			schemaLoader := gojsonschema.NewReferenceLoader(fmt.Sprintf("file://%s", schema))
+			documentLoader := gojsonschema.NewReferenceLoader(fmt.Sprintf("file://%s%s", prefix, v))
+			result, err := gojsonschema.Validate(schemaLoader, documentLoader)
 			if err != nil {
-				fmt.Errorf(err.Error())
+				fmt.Println("Schema Validation Error", err)
 			}
-			err = validate.Struct(connector)
-			if err != nil {
-				validationErrors := err.(validator.ValidationErrors)
-				fmt.Println("err", validationErrors)
+
+			if !result.Valid() {
+				fmt.Printf("The connecot %s is not valid. see errors :\n", v)
+				for _, desc := range result.Errors() {
+					fmt.Printf("- %s\n", desc)
+				}
 				os.Exit(failed)
 			}
 		}
