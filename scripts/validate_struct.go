@@ -20,6 +20,7 @@ type Connector struct {
 func main() {
 	args := os.Args[1:]
 	validate := validator.New()
+	fmt.Println(args)
 
 	if len(args) != 0 {
 		for _, v := range args {
