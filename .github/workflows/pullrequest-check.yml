@@ -22,10 +22,15 @@ jobs:
       - name: Get changed files
         id: changed-files
         uses: tj-actions/changed-files@v22.2
+        with:
+          path: './connectors/'
 
-      - name: List all changed files
-        run: |              
-            cd ./scripts
-            pwd
-            go run validate_struct.go ${{ steps.changed-files.outputs.all_changed_files }}
-            cd ../          
+      - name: connectors validation
+        run: |
+          echo ${{ steps.changed-files.outputs.all_changed_files }}
+          cd ./scripts
+          pwd
+          ids=${{ steps.changed-files.outputs.all_changed_files }};id="${ids[@]}";
+          echo ${id// /" "}
+          go run validate_struct.go echo ${id// /" "}
+          cd ../        

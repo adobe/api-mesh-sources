@@ -9,6 +9,11 @@ import (
 	"github.com/go-playground/validator/v10"
 )
 
+const (
+	failed int = iota
+	success
+)
+
 type Connector struct {
 	Name        string      `json:"name" validate:"required"`
 	Version     string      `json:"version" validate:"required,semver"`
@@ -34,8 +39,10 @@ func main() {
 			if err != nil {
 				validationErrors := err.(validator.ValidationErrors)
 				fmt.Println("err", validationErrors)
+				os.Exit(failed)
 			}
 		}
 	}
 	fmt.Println("Validation success")
+	os.Exit(success)
 }
