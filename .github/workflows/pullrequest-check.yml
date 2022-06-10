@@ -29,7 +29,7 @@ jobs:
             pwd            
             cd ./scripts
             pwd
-            go run validate_struct.go $file
+            go run validate_struct.go ../$file
             cd ../
             echo "$file was changed"
           done
