@@ -8,15 +8,17 @@ import (
 )
 
 const (
-	failed int = iota
-	success
+	success int = iota
+	failed
 )
 
 func main() {
 	args := os.Args[3:]
 	schema := os.Args[1]
 	prefix := os.Args[2]
-
+	fmt.Println("schema path:", schema)
+	fmt.Println("prefix path:", prefix)
+	fmt.Println("connecor paths:", args)
 	if len(args) != 0 {
 		for _, v := range args {
 			schemaLoader := gojsonschema.NewReferenceLoader(fmt.Sprintf("file://%s", schema))

@@ -29,5 +29,5 @@ jobs:
         run: |
           cd ./scripts
           ids=${{ steps.changed-files.outputs.all_changed_files }};id="${ids[@]}";
-          go run validate_struct.go ../connector.schema.json ../ echo ${id// /" "}
+          go run validate_struct.go ../connector.schema.json ../ {echo ${id// /" "}}
           cd ../        
