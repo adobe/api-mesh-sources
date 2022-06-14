@@ -39,4 +39,6 @@ jobs:
             id="${ids[@]}";
             go run . ${{ github.workspace }} connector.schema.json ${id// /" "}
             cd ${{ github.workspace }}
-          fi     
+          else
+            echo "No updated connector"
+          fi    
