@@ -28,7 +28,7 @@ jobs:
       - name: Connectors validation
         run: |
           ids=${{ steps.changed-files.outputs.all_changed_files }}; 
-          if [ ${#errors[@]} -eq 0 ]; then
+          if [ ${#ids[@]} -eq 0 ]; then
             echo "No errors, hooray"
           else
             echo "Oops, something went wrong..."
