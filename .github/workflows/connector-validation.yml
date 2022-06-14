@@ -24,18 +24,12 @@ jobs:
         uses: tj-actions/changed-files@v22.2
         with:
           files: |           
-            connectors/**
-      - name: List changed files
-        run: |
-          list=${{ steps.changed-files.outputs.all_changed_files }};
-          echo [${#list[@]} -eq 0]
-          echo ${#list[@] -eq 0}
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            echo "$file was changed"
-          done
+            connectors/**      
       - name: Connectors validation
         run: |
-          cd ${{ github.workspace }}/scripts/
-          ids=${{ steps.changed-files.outputs.all_changed_files }};id="${ids[@]}";
-          go run . ${{ github.workspace }} connector.schema.json ${id// /" "}
-          cd ${{ github.workspace }}      
+          ids=${{ steps.changed-files.outputs.all_changed_files }};
+          if [ ${#ids[@]} -eq 0 ]; then
+            cd ${{ github.workspace }}/scripts/
+            id="${ids[@]}";
+            go run . ${{ github.workspace }} connector.schema.json ${id// /" "}
+            cd ${{ github.workspace }}      
