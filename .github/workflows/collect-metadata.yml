@@ -25,10 +25,10 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v22.2
         with:
-          path: '${GITHUB_WORKSPACE}/connectors/'
+          path: '${{ github.workspace }}/connectors/'
       - name: List all changed files
         run: |
-          cd ${GITHUB_WORKSPACE}/scripts/
+          cd ${{ github.workspace }}/scripts/
           ids=${{ steps.changed-files.outputs.all_changed_files }};id="${ids[@]}";
-          go run . ${GITHUB_WORKSPACE} connector.metadata.json archive ${id// /" "}
-          cd ${GITHUB_WORKSPACE}      
+          go run . ${{ github.workspace }} connector.metadata.json archive ${id// /" "}
+          cd ${{ github.workspace }}   
