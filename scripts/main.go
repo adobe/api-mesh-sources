@@ -14,14 +14,14 @@ type CommandInterface interface {
 	Run()
 }
 
-type ActionRouter map[string]CommandInterface
+type ActionRouter map[string]func() CommandInterface
 
 func main() {
 	commandType := os.Args[1]
 	router := make(ActionRouter)
-	router["validate-connector"] = NewValidateConnector(os.Args[2], os.Args[3], os.Args[4:])
-	router["collect-metadata"] = NewCollectMetadata(os.Args[2], os.Args[3], os.Args[4], os.Args[5:])
-	router[commandType].Run()
+	router["validate-connector"] = func() CommandInterface { return NewValidateConnector(os.Args[2], os.Args[3], os.Args[4:]) }
+	router["collect-metadata"] = func() CommandInterface { NewCollectMetadata(os.Args[2], os.Args[3], os.Args[4], os.Args[5:]) }
+	router[commandType]().Run()
 }
 
 func LogError(err error, info interface{}) {
