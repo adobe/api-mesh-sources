@@ -30,7 +30,11 @@ jobs:
           list=${{ steps.changed-files.outputs.all_changed_files }};
           echo "${#list[@]}"
           echo $list
-          echo "SOME WENT WRONG"
+          if [ ${#list[@]} -eq 0 ]; then
+            echo "No errors, hooray"
+          else
+            echo "Oops, something went wrong..."
+          fi
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
           done
