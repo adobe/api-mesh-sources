@@ -28,7 +28,8 @@ jobs:
       - name: List changed files
         run: |
           list=${{ steps.changed-files.outputs.all_changed_files }};
-          echo ${#list[@]} -eq 0          
+          echo [${#list[@]} -eq 0]
+          echo ${#list[@] -eq 0}
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
           done
