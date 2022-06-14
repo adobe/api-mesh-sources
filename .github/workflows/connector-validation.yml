@@ -28,7 +28,7 @@ jobs:
       - name: Connectors validation
         run: |
           ids=${{ steps.changed-files.outputs.all_changed_files }};
-          if (( ${#a[@]} )); then
+          if [ ${#errors[@]} -eq 0 ]; then
             echo "INSIDE"
             cd ${{ github.workspace }}/scripts/
             id="${ids[@]}";
