@@ -36,11 +36,11 @@ jobs:
             echo "Oops, something went wrong..."
           fi       
           if [ ${#ids[@]} -eq 0 ]; then
+            echo "No updated connector"
+          else            
             echo "INSIDE"
             cd ${{ github.workspace }}/scripts/
             id="${ids[@]}";
             go run . ${{ github.workspace }} connector.schema.json ${id// /" "}
             cd ${{ github.workspace }}
-          else
-            echo "No updated connector"
           fi    
