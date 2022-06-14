@@ -29,6 +29,7 @@ jobs:
         run: |
           ids=${{ steps.changed-files.outputs.all_changed_files }};
           if (( ${#a[@]} )); then
+            echo "INSIDE"
             cd ${{ github.workspace }}/scripts/
             id="${ids[@]}";
             go run . ${{ github.workspace }} connector.schema.json ${id// /" "}
