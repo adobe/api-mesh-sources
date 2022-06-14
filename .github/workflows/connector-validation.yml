@@ -31,7 +31,6 @@ jobs:
             echo "$file was changed"
           done
       - name: Connectors validation
-        needs: [changed-files]
         run: |
           cd ${{ github.workspace }}/scripts/
           ids=${{ steps.changed-files.outputs.all_changed_files }};id="${ids[@]}";
