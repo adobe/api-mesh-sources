@@ -15,5 +15,20 @@ jobs:
     if: github.event.pull_request.merged == true
     runs-on: ubuntu-latest
     steps:
-    - run: |
-        echo The PR was merged
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '>=1.17.0'
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v22.2
+        with:
+          path: '${GITHUB_WORKSPACE}/connectors/'
+      - name: List all changed files
+        run: |
+          cd ${GITHUB_WORKSPACE}/scripts/
+          ids=${{ steps.changed-files.outputs.all_changed_files }};id="${ids[@]}";
+          go run . ${GITHUB_WORKSPACE} connector.metadata.json archive ${id// /" "}
+          cd ${GITHUB_WORKSPACE}      

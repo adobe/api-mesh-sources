@@ -23,11 +23,11 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v22.2
         with:
-          path: './connectors/'
+          path: '${GITHUB_WORKSPACE}/connectors/'
 
       - name: Connectors validation
         run: |
-          cd ./scripts
+          cd ${GITHUB_WORKSPACE}/scripts/
           ids=${{ steps.changed-files.outputs.all_changed_files }};id="${ids[@]}";
-          go run validate_struct.go ../connector.schema.json ../ ${id// /" "}
-          cd ../        
+          go run . ${GITHUB_WORKSPACE} connector.schema.json ${id// /" "}
+          cd ${GITHUB_WORKSPACE}      

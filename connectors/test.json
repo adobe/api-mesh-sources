@@ -1,8 +1,8 @@
 {
     "name": "Test connector",
     "version": "0.0.1",
-    "description": "super description",
-    "author": "VZ",    
+    "description": "super 3",
+    "author": "VZ",
     "provider": {
         "name": "Commerce",
         "handler": {
