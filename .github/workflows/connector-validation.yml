@@ -26,7 +26,8 @@ jobs:
           path: './connectors/'
       - name: List changed files
         run: |
-          echo "${#steps.changed-files.outputs.all_changed_files[@]}"
+          list=${{ steps.changed-files.outputs.all_changed_files }};
+          echo "${#list[@]}"
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
           done
