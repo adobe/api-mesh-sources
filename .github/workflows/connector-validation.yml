@@ -28,8 +28,9 @@ jobs:
       - name: Connectors validation
         run: |
           ids=${{ steps.changed-files.outputs.all_changed_files }};
-          if [ ${#ids[@]} -eq 0 ]; then
+          if (( ${#a[@]} )); then
             cd ${{ github.workspace }}/scripts/
             id="${ids[@]}";
             go run . ${{ github.workspace }} connector.schema.json ${id// /" "}
-            cd ${{ github.workspace }}      
+            cd ${{ github.workspace }}
+          fi     
