@@ -21,6 +21,7 @@ func main() {
 	router := make(ActionRouter)
 	router["validate-connector"] = func() CommandInterface { return NewValidateConnector(os.Args[2], os.Args[3], os.Args[4:]) }
 	router["collect-metadata"] = func() CommandInterface { return NewCollectMetadata(os.Args[2], os.Args[3], os.Args[4], os.Args[5:]) }
+	fmt.Println(os.Args[2], os.Args[3])
 	router[commandType]().Run()
 }
 
