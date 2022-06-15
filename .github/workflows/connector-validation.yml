@@ -33,7 +33,7 @@ jobs:
           done           
       - name: Connectors validation
         run: |
-          ids= (${{ steps.changed-files.outputs.all_changed_files }});
+          ids=(${{ steps.changed-files.outputs.all_changed_files }});
           echo $ids
           echo ${#ids[@]} -eq 0
           if [ ${#ids[@]} -eq 0 ]; then
