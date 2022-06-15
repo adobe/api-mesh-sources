@@ -46,4 +46,8 @@ jobs:
             id="${ids[@]}";
             go run . "collect-metadata" ${{ github.workspace }} connectors-metadata.json archive ${id// /" "}
             cd ${{ github.workspace }}
-          fi    
+          fi
+      - name: Commit & Push changes
+        uses: actions-js/push@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}    

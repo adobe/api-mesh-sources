@@ -76,6 +76,7 @@ func (cm *CollectMetadata) Run() {
 	wg.Wait()
 	connectorsMapString, err := json.Marshal(connectorsMetadata)
 	LogError(err, "Error on marshaling file")
+	fmt.Println(string(connectorsMapString))
 	ioutil.WriteFile(cm.metaPath, connectorsMapString, 0644)
 }
 
