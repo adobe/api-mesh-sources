@@ -47,6 +47,6 @@ jobs:
             echo "INSIDE"
             cd ${{ github.workspace }}/scripts/
             id="${ids[@]}";
-            go run . ${{ github.workspace }} connector.schema.json ${id// /" "}
+            go run . "validate-connector" ${{ github.workspace }} connector.schema.json ${id// /" "}
             cd ${{ github.workspace }}
           fi    
