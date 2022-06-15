@@ -27,9 +27,9 @@ jobs:
             connectors/** 
       - name: List all changed files
         run: |
-          isConnectorsChanged = false
+          isConnectorsChanged=false
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            isConnectorsChanged = true
+            isConnectorsChanged=true
           done           
       - name: Connectors validation
         run: |
