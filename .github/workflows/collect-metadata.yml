@@ -33,6 +33,7 @@ jobs:
       - name: List all changed files
         run: |
           echo github.event.pull_request
+          echo ${{ github.event.pull_request }}
           echo ${{ steps.changed-files.outputs.all_changed_files }};
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
             echo "$file was changed"
