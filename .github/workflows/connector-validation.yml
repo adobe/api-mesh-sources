@@ -24,27 +24,13 @@ jobs:
         uses: tj-actions/changed-files@v22.2
         with:
           files: |           
-            connectors/** 
-      - name: List all changed files
-        run: |
-          isConnectorsChanged=false
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            isConnectorsChanged=true
-          done           
+            connectors/**      
       - name: Connectors validation
         run: |
           ids=(${{ steps.changed-files.outputs.all_changed_files }});
-          echo $ids
-          echo ${#ids[@]} -eq 0
-          if [ ${#ids[@]} -eq 0 ]; then
-            echo "No errors, hooray"
-          else
-            echo "Oops, something went wrong..."
-          fi       
           if [ ${#ids[@]} -eq 0 ]; then
             echo "No updated connector"
           else            
-            echo "INSIDE"
             cd ${{ github.workspace }}/scripts/
             id="${ids[@]}";
             go run . "validate-connector" ${{ github.workspace }} connector.schema.json ${id// /" "}
