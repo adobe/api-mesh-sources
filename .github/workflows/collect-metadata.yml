@@ -34,7 +34,7 @@ jobs:
         run: |
           ids=(${{ steps.changed-files.outputs.all_changed_files }});
           if [ ${#ids[@]} -eq 0 ]; then
-            echo "No updated connector"
+            echo "No uqpdated connector"
           else            
             cd ${{ github.workspace }}/scripts/
             id="${ids[@]}";
