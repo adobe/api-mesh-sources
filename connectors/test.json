@@ -1,8 +1,7 @@
 {
     "name": "Test connector 1",
-    "version": "0.0.3333",
-    "description": "some desk",
-    "author": "VZqqq",
+    "version": "0.0.1",
+    "author": "VZ",
     "provider": {
         "name": "Commerce",
         "handler": {
