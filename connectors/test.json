@@ -1,6 +1,7 @@
 {
     "name": "Test 1",
     "version": "0.0.1",
+    "description": "some description",
     "author": "VZ",
     "provider": {
         "name": "Commerce",
