@@ -1,6 +1,7 @@
 {
     "name": "Test connector 1",
     "version": "0.0.1",
+    "description": "some desc",
     "author": "VZ",
     "provider": {
         "name": "Commerce",
