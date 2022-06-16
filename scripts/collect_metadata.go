@@ -106,11 +106,16 @@ func (cm *CollectMetadata) getUpdatedMetadata(prevMeta *ConnectorMetadata, conne
 	var c *ConnectorMetadata
 	if prevMeta != nil {
 		c = prevMeta
-		if semver.Compare(fmt.Sprintf("v%s", c.Latest), fmt.Sprintf("v%s", connector.Version)) == -1 {
+		compare := semver.Compare(fmt.Sprintf("v%s", c.Latest), fmt.Sprintf("v%s", connector.Version))
+		if compare == -1 {
 			ckn := strings.ToLower(strings.Replace(connector.Name, " ", "-", -1))
 			c.Url = fmt.Sprintf("%s/%s-%s.json", cm.storagePath, connector.Version, ckn)
 			c.Versions = append(c.Versions, connector.Version)
 			c.Latest = connector.Version
+			c.Author = connector.Author
+			c.Description = connector.Description
+		}
+		if compare == 0 {
 			c.Author = connector.Author
 			c.Description = connector.Description
 		}
