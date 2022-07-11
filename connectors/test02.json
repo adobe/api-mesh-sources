@@ -1,7 +1,7 @@
 {
-    "name": "Test 01",
-    "version": "0.0.2",
-    "description": "Mock for valid connector update",
+    "name": "Test 02",
+    "version": "0.0.1",
+    "description": "Mock for valid connector w34",
     "author": "VZ",
     "provider": {
         "name": "Commerce",
