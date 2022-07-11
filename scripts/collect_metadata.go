@@ -11,8 +11,6 @@ import (
 	"golang.org/x/mod/semver"
 )
 
-//test
-
 var validate *validator.Validate
 
 type Connector struct {
