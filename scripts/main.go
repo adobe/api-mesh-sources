@@ -11,7 +11,7 @@ const (
 )
 
 type CommandInterface interface {
-	Run()
+	Run() error
 }
 
 type ActionRouter map[string]func() CommandInterface
@@ -21,12 +21,10 @@ func main() {
 	router := make(ActionRouter)
 	router["validate-connector"] = func() CommandInterface { return NewValidateConnector(os.Args[2], os.Args[3], os.Args[4:]) }
 	router["collect-metadata"] = func() CommandInterface { return NewCollectMetadata(os.Args[2], os.Args[3], os.Args[4], os.Args[5:]) }
-	router[commandType]().Run()
-}
-
-func LogError(err error, info interface{}) {
+	err := router[commandType]().Run()
 	if err != nil {
-		fmt.Printf("%s: %v", info, err.Error())
+		fmt.Printf("%v", err.Error())
 		os.Exit(Failed)
 	}
+	os.Exit(Success)
 }

@@ -1,8 +1,8 @@
 package main
 
 import (
+	"errors"
 	"fmt"
-	"os"
 	"sync"
 
 	"github.com/xeipuuv/gojsonschema"
@@ -30,22 +30,35 @@ func NewValidateConnector(
 	}
 }
 
-func (vc *ValidateConnector) Run() {
+func (vc *ValidateConnector) Run() error {
 	var wg sync.WaitGroup
+	var errList []error
 	wg.Add(len(vc.connectorPaths))
 	schemaLoader := gojsonschema.NewReferenceLoader(fmt.Sprintf("file://%s", vc.schemaPath))
 	for _, v := range vc.connectorPaths {
 		go func(path string) {
 			defer wg.Done()
-			vc.validateConnector(path, schemaLoader)
+			err := vc.validateConnector(path, schemaLoader)
+			if err != nil {
+				errList = append(errList, err)
+			}
 		}(v)
 	}
 	wg.Wait()
+	if len(errList) != 0 {
+		err := errors.New("The connectors validation failed:")
+		for _, connError := range errList {
+			err = fmt.Errorf("%w\n %s\n", err, connError)
+		}
+		fmt.Printf("%s", err)
+		return err
+	}
+
 	fmt.Println("Validation success")
-	os.Exit(Success)
+	return nil
 }
 
-func (vc *ValidateConnector) validateConnector(path string, schemaLoader gojsonschema.JSONLoader) {
+func (vc *ValidateConnector) validateConnector(path string, schemaLoader gojsonschema.JSONLoader) error {
 	documentLoader := gojsonschema.NewReferenceLoader(fmt.Sprintf("file://%s", path))
 	result, err := gojsonschema.Validate(schemaLoader, documentLoader)
 	if err != nil {
@@ -53,10 +66,12 @@ func (vc *ValidateConnector) validateConnector(path string, schemaLoader gojsons
 	}
 
 	if !result.Valid() {
-		fmt.Printf("The connecot %s is not valid. see errors :\n", path)
+		err := errors.New(fmt.Sprintf("Connector: %s\n", path))
+
 		for _, desc := range result.Errors() {
-			fmt.Printf("- %s\n", desc)
+			err = fmt.Errorf("%w %s\n", err, desc)
 		}
-		os.Exit(Failed)
+		return err
 	}
+	return nil
 }

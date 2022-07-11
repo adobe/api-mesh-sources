@@ -44,26 +44,31 @@ func NewCollectMetadata(
 	storageFolderPath string,
 	connectorPaths []string,
 ) *CollectMetadata {
-	cp := make([]string, len(connectorPaths))
+	connectorPathsFormatted := make([]string, len(connectorPaths))
 	for i, v := range connectorPaths {
-		cp[i] = fmt.Sprintf("%s/%s", rootPath, v)
+		connectorPathsFormatted[i] = fmt.Sprintf("%s/%s", rootPath, v)
 	}
 
 	return &CollectMetadata{
 		rootPath:       rootPath,
 		metaPath:       fmt.Sprintf("%s/%s", rootPath, metadataFilePath),
 		storagePath:    fmt.Sprintf("%s/%s", rootPath, storageFolderPath),
-		connectorPaths: cp,
+		connectorPaths: connectorPathsFormatted,
 	}
 }
 
-func (cm *CollectMetadata) Run() {
+func (cm *CollectMetadata) Run() error {
 	connectorsMetadata := make(ConnectorsMetadata)
 	connectorsMap, err := ioutil.ReadFile(cm.metaPath)
 
-	LogError(err, "Error on data file")
+	if err != nil {
+		return fmt.Errorf("%s: %v", "Error on data file", err.Error())
+	}
+
 	err = json.Unmarshal(connectorsMap, &connectorsMetadata)
-	LogError(err, "Error on unmarshaling connectors metadata")
+	if err != nil {
+		return fmt.Errorf("%s: %v", "Error on unmarshaling connectors metadata", err.Error())
+	}
 
 	var wg sync.WaitGroup
 	wg.Add(len(cm.connectorPaths))
@@ -75,31 +80,45 @@ func (cm *CollectMetadata) Run() {
 	}
 	wg.Wait()
 	connectorsMapString, err := json.Marshal(connectorsMetadata)
-	LogError(err, "Error on marshaling file")
+	if err != nil {
+		return fmt.Errorf("%s: %v", "Error on marshaling file", err.Error())
+	}
 	fmt.Println(string(connectorsMapString))
 	ioutil.WriteFile(cm.metaPath, connectorsMapString, 0644)
+	return nil
 }
 
-func (cm *CollectMetadata) processConnector(cp string, csm ConnectorsMetadata) {
-	connector, file := cm.getConnector(cp)
+func (cm *CollectMetadata) processConnector(cp string, csm ConnectorsMetadata) error {
+	connector, file, err := cm.getConnector(cp)
+	if err != nil {
+		return err
+	}
 	ckn := strings.ToLower(strings.Replace(connector.Name, " ", "-", -1))
 	csm[ckn] = cm.getUpdatedMetadata(csm[ckn], connector)
 	ioutil.WriteFile(fmt.Sprintf("%s/%s-%s.json", cm.storagePath, connector.Version, ckn), file, 0644)
+	return nil
 }
 
-func (cm *CollectMetadata) getConnector(path string) (*Connector, []byte) {
+func (cm *CollectMetadata) getConnector(path string) (*Connector, []byte, error) {
 	validate := validator.New()
 	file, err := ioutil.ReadFile(path)
-	LogError(err, "Error on reading file")
+
+	if err != nil {
+		return nil, nil, fmt.Errorf("%s: %v", "Error on reading file", err.Error())
+	}
 	connector := &Connector{}
 	err = json.Unmarshal(file, connector)
-	LogError(err, "Error on unmarshaling JSON")
+	if err != nil {
+		return nil, nil, fmt.Errorf("%s: %v", "Error on unmarshaling JSON", err.Error())
+	}
 	err = validate.Struct(connector)
 	if err != nil {
 		validationErrors := err.(validator.ValidationErrors)
-		LogError(err, validationErrors)
+		if err != nil {
+			return nil, nil, fmt.Errorf("%s: %v", validationErrors, err.Error())
+		}
 	}
-	return connector, file
+	return connector, file, nil
 }
 
 func (cm *CollectMetadata) getUpdatedMetadata(prevMeta *ConnectorMetadata, connector *Connector) *ConnectorMetadata {

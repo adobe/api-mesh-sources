@@ -1,4 +1,4 @@
-name: Connector Validation
+name: Run Script Tests
 
 defaults:
   run:
@@ -12,7 +12,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    name: Validate connector strucure
+    name: Run Script Tests
     steps:
       - uses: actions/checkout@v3
         with:
@@ -25,15 +25,12 @@ jobs:
         uses: tj-actions/changed-files@v22.2
         with:
           files: |           
-            connectors/**      
+            scripts/**
       - name: Connectors validation
         run: |
           ids=(${{ steps.changed-files.outputs.all_changed_files }});
           if [ ${#ids[@]} -eq 0 ]; then
-            echo "No updated connector"
-          else            
+            echo "No changes in scripts"
+          else     
             cd ${{ github.workspace }}/scripts/
-            id="${ids[@]}";
-            go run . "validate-connector" ${{ github.workspace }} connector.schema.json ${id// /" "}
-            cd ${{ github.workspace }}
-          fi    
+            go test
