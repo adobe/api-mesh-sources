@@ -30,7 +30,7 @@ jobs:
         with:          
           base_sha: ${{ github.event.pull_request.base.sha }}
           files: |           
-            connectors/**                 
+            connectors/*
       - name: Collect Metadata
         run: |
           ids=(${{ steps.changed-files.outputs.all_changed_files }});
