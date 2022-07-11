@@ -24,7 +24,7 @@ jobs:
         id: changed-files
         uses: tj-actions/changed-files@v22.2
         with:
-          path: |           
+           files: |          
             connectors
       - name: List all changed files
         run: |
