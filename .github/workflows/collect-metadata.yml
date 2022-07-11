@@ -45,5 +45,5 @@ jobs:
       - name: Commit & Push changes
         uses: actions-js/push@master
         with:
-          branch: ${GITHUB_REF##*/}
+          branch: echo ${GITHUB_REF##*/}
           github_token: ${{ secrets.GITHUB_TOKEN }}    
