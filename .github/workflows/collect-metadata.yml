@@ -35,7 +35,7 @@ jobs:
         run: |
           ids=(${{ steps.changed-files.outputs.all_changed_files }});
           if [ ${#ids[@]} -eq 0 ]; then
-            echo "No uqpdated connector"
+            echo "No updated connector"
           else            
             cd ${{ github.workspace }}/scripts/
             id="${ids[@]}";
@@ -45,4 +45,5 @@ jobs:
       - name: Commit & Push changes
         uses: actions-js/push@master
         with:
+          branch: ${GITHUB_REF##*/}
           github_token: ${{ secrets.GITHUB_TOKEN }}    
