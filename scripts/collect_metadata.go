@@ -48,7 +48,7 @@ func NewCollectMetadata(
 	for i, v := range connectorPaths {
 		connectorPathsFormatted[i] = fmt.Sprintf("%s/%s", rootPath, v)
 	}
-	fmt.Println("Test updated 7")
+	fmt.Println("Test updated 8")
 	return &CollectMetadata{
 		rootPath:       rootPath,
 		metaPath:       fmt.Sprintf("%s/%s", rootPath, metadataFilePath),
