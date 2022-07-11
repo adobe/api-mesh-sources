@@ -42,8 +42,11 @@ jobs:
             go run . "collect-metadata" ${{ github.workspace }} connectors-metadata.json archive ${id// /" "}
             cd ${{ github.workspace }}            
           fi
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v5.4    
       - name: Commit & Push changes
         uses: actions-js/push@master
         with:
-          branch: echo ${GITHUB_REF##*/}
+          branch: ${{ steps.branch-name.outputs.current_branch }}
           github_token: ${{ secrets.GITHUB_TOKEN }}    
