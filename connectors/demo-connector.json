@@ -1,7 +1,7 @@
 {
     "name": "Demo Connector",
-    "version": "0.0.1",
-    "description": "Mock for valid connector",
+    "version": "0.0.2",
+    "description": "Mock for valid connector version 2",
     "author": "VZ",
     "provider": {
         "name": "Commerce",
