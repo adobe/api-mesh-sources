@@ -1,0 +1,52 @@
+name: Collect connectors metadata
+
+defaults:
+  run:
+    shell: bash
+
+on:
+  pull_request:
+    types:
+      - closed
+    branches:
+      - main
+      - dev
+      
+jobs:
+  if_merged:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    name: Collect connector metadata
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-go@v3
+        with:
+          go-version: '>=1.17.0'
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v22.2
+        with:          
+          base_sha: ${{ github.event.pull_request.base.sha }}
+          files: |           
+            connectors/*
+      - name: Collect Metadata
+        run: |
+          ids=(${{ steps.changed-files.outputs.all_changed_files }});
+          if [ ${#ids[@]} -eq 0 ]; then
+            echo "No updated connector"
+          else            
+            cd ${{ github.workspace }}/scripts/
+            id="${ids[@]}";
+            go run . "collect-metadata" ${{ github.workspace }} connectors-metadata.json archive ${id// /" "}
+            cd ${{ github.workspace }}            
+          fi
+      - name: Get branch name
+        id: branch-name
+        uses: tj-actions/branch-names@v5.4    
+      - name: Commit & Push changes
+        uses: actions-js/push@master
+        with:
+          branch: ${{ steps.branch-name.outputs.base_ref_branch }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}    
