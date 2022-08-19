@@ -5,7 +5,7 @@
         "name": "CommerceCoreGraph",
         "handler": {
           "graphql": {
-            "endpoint": "https://accenturetest.magento.com/graphql"
+            "endpoint": "<URL>"
           }
         },
             "transforms": [
