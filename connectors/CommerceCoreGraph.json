@@ -2,6 +2,7 @@
   "name": "CommerceCoreGraph",
   "version": "0.0.1",    
   "author": "nrkapoor",
+  "description": "Adobe Commerce Core",
   "provider": {
     "name": "CommerceCoreGraph",
     "handler": {
