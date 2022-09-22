@@ -21,6 +21,10 @@
           "type": "string",
           "description": "A description of the connector"
         },
+        "variables": {
+          "type": ["object", "null"],
+          "description": "The list of variables for source"
+        },
         "provider": {
           "type": "object",
           "description": "The connector source"
