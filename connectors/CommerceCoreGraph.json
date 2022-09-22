@@ -3,11 +3,18 @@
   "version": "0.0.1",    
   "author": "nrkapoor",
   "description": "Adobe Commerce Core",
+  "variables": {
+    "ENDPOINT_URL": {
+      "name": "CommerceCoreGraph API",
+      "description": "This URL will be used to query the CommerceCoreGraph Graphql",
+      "type": "string"      
+    }
+  },
   "provider": {
     "name": "CommerceCoreGraph",
     "handler": {
       "graphql": {
-        "endpoint": "https://venia.magento.com/graphql/"
+        "endpoint": "${ENDPOINT_URL}"
       }
     },
     "transforms": [
