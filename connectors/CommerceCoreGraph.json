@@ -2,8 +2,14 @@
   "name": "CommerceCoreGraph",
   "version": "0.0.2",    
   "author": "nrkapoor",
-  "description": "Adobe Commerce Core",
-  "variables": {},
+  "description": "Adobe Commerce Core Update test",
+  "variables": {
+    "ENDPOINT_URL": {
+      "name": "CommerceCoreGraph API",
+      "description": "This URL will be used to query the CommerceCoreGraph Graphql",
+      "type": "string"      
+    }
+  },
   "provider": {
     "name": "CommerceCoreGraph",
     "handler": {
