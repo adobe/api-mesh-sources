@@ -2,7 +2,7 @@
   "name": "CommerceCoreGraph",
   "version": "0.0.2",    
   "author": "nrkapoor",
-  "description": "Adobe Commerce Core Update test",
+  "description": "Adobe Commerce Core Update",
   "variables": {
     "ENDPOINT_URL": {
       "name": "CommerceCoreGraph API",
