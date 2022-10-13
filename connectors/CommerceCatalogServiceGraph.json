@@ -1,0 +1,14 @@
+{
+  "name": "CommerceCatalogServiceGraph",
+  "version": "1.0.0",
+  "author": "lradu",
+  "description": "Adobe Commerce Catalog Service",
+  "provider": {
+    "name": "CommerceCatalogServiceGraph",
+    "handler": {
+      "graphql": {
+        "endpoint": "https://catalog-service.adobe.io/graphql/"
+      }
+    }
+  }
+}
