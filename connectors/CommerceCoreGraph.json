@@ -17,6 +17,15 @@
         "endpoint": "${ENDPOINT_URL}"
       }
     },
+    "operations": [
+      {
+        "path": "/product-complex-attribute",
+        "responseSchema": "./product-extension-complex-field.json",
+        "type": "Query",
+        "field": "product_extension_complex_attribute",
+        "method": "GET"
+      }
+    ],
     "transforms": [
       {
         "filterSchema": {
@@ -39,5 +48,11 @@
         }
       }
     ]
-  }
+  },
+  "files": [
+    {
+      "path": "./product-extension-complex-field.json",
+      "content": "{\"$ref\": \"#/definitions/IoRuntimeComplexProductExtension\",\"definitions\": {\"IoRuntimeComplexProductExtension\": {\"type\": \"object\",\"title\": \"Complex product extension\",\"description\": \"Complex product extension field\",\"properties\": {\"fieldA\": {\"type\": \"string\"},\"fieldB\": {\"type\": \"string\"}}}}}"
+    }
+  ]
 }
