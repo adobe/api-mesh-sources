@@ -31,7 +31,17 @@
         },
         "files": {
           "type": ["array", "null"],
-          "definitions": "Links to files in the source"
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              }
+            }
+          }
         }
     },
     "required":["name", "author", "version", "description", "provider"],
