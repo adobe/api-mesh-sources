@@ -25,12 +25,18 @@ import (
 
 var validate *validator.Validate
 
+type File struct {
+	Path    string `json:"path"`
+	Content string `json:"content"`
+}
+
 type Connector struct {
 	Name        string      `json:"name" validate:"required"`
 	Version     string      `json:"version" validate:"required,semver"`
 	Description string      `json:"description" validate:"required"`
 	Author      string      `json:"author" validate:"required"`
 	Provider    interface{} `json:"provider" validate:"required"`
+	Files       []File      `json:"files"`
 }
 
 type ConnectorMetadata struct {

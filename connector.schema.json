@@ -28,6 +28,10 @@
         "provider": {
           "type": "object",
           "description": "The connector source"
+        },
+        "files": {
+          "type": ["array", "null"],
+          "definitions": "Links to files in the source"
         }
     },
     "required":["name", "author", "version", "description", "provider"],
