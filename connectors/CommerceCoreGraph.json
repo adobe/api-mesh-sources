@@ -1,6 +1,6 @@
 {
   "name": "CommerceCoreGraph",
-  "version": "0.0.1",    
+  "version": "0.0.2",    
   "author": "nrkapoor",
   "description": "Adobe Commerce Core",
   "variables": {
@@ -16,16 +16,7 @@
       "graphql": {
         "endpoint": "${ENDPOINT_URL}"
       }
-    },
-    "operations": [
-      {
-        "path": "/product-complex-attribute",
-        "responseSchema": "./product-extension-complex-field.json",
-        "type": "Query",
-        "field": "product_extension_complex_attribute",
-        "method": "GET"
-      }
-    ],
+    },    
     "transforms": [
       {
         "filterSchema": {
