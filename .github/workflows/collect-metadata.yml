@@ -12,7 +12,7 @@ on:
       - main
       - dev
       
-jobs:
+jobs:  
   if_merged:
     if: github.event.pull_request_target.merged == true
     runs-on: ubuntu-latest
@@ -53,3 +53,11 @@ jobs:
           author_name: "github-jira-sync-bot"
           branch: ${{ steps.branch-name.outputs.base_ref_branch }}
           github_token: ${{ secrets.GJSSBOT }}
+  if_not_merged:
+    runs-on: ubuntu-latest
+    name: Print pull_request_target
+    steps: 
+      - name: Print pull_request_target
+        run: |
+          echo "Print prt"
+          echo github.event.pull_request_target
