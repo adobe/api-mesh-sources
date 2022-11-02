@@ -62,5 +62,5 @@ jobs:
           echo "Print prt"
           echo github.event.pull_request_target
       - name: Debug action
-          uses: hmarr/debug-action@v2.1.0
+        uses: hmarr/debug-action@v2.1.0
 
