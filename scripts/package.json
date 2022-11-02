@@ -1,0 +1,11 @@
+{
+    "name": "scripts",
+    "version": "1.0.0",
+    "description": "Scripts for validation",
+    "main": "variable-validation.js",
+    "author": "VladimirZaets",
+    "license": "MIT",
+    "dependencies": {
+        "json-interpolate": "^1.0.3"
+    }
+}
