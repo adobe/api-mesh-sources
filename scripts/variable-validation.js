@@ -7,7 +7,9 @@ for (path of paths) {
     const source = JSON.parse(fs.readFileSync(`${root}/${path}`).toString());
     const jsonInterpolate = new JsonInterpolate({variablesSchema: source.variables});
     const variables = jsonInterpolate.getJsonVariables(JSON.stringify(source.provider));
-    const notDeclared = jsonInterpolate.getVariablesWithoutDeclaredInterface(variables);
+    const notDeclared = source.variables ? 
+        jsonInterpolate.getVariablesWithoutDeclaredInterface(variables) :
+        variables;
 
     if (notDeclared.length) {
         throw new Error(`

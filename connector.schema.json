@@ -21,9 +21,27 @@
           "type": "string",
           "description": "A description of the connector"
         },
+        "variables": {
+          "type": ["object", "null"],
+          "description": "The list of variables for source"
+        },
         "provider": {
           "type": "object",
           "description": "The connector source"
+        },
+        "files": {
+          "type": ["array", "null"],
+          "items": {
+            "type": "object",
+            "properties": {
+              "path": {
+                "type": "string"
+              },
+              "content": {
+                "type": "string"
+              }
+            }
+          }
         }
     },
     "required":["name", "author", "version", "description", "provider"],
