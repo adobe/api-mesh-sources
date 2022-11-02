@@ -1,0 +1,47 @@
+name: Variable validation
+
+defaults:
+  run:
+    shell: bash
+
+on:
+  pull_request:
+    branches:
+      - main
+      - dev
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    name: Validate variables in source
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+      - name: Install dependencies
+        run: cd scripts && npm install && cd ../
+      - name: Get changed files
+        id: changed-files
+        uses: tj-actions/changed-files@v22.2
+        with:
+          files: |          
+            connectors/*
+      - name: List all changed files
+        run: |
+          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
+            echo "$file was changed"
+          done      
+      - name: Connectors validation
+        run: |
+          ids=(${{ steps.changed-files.outputs.all_changed_files }});
+          if [ ${#ids[@]} -eq 0 ]; then
+            echo "No updated connector"
+          else            
+            cd ${{ github.workspace }}/scripts/
+            id="${ids[@]}";
+            node variable-validation.js ${{ github.workspace }} ${id// /" "}
+            cd ${{ github.workspace }}
+          fi    
+          
