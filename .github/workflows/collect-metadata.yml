@@ -40,7 +40,8 @@ jobs:
             cd ${{ github.workspace }}/scripts/
             id="${ids[@]}";
             go run . "collect-metadata" ${{ github.workspace }} connectors-metadata.json archive ${id// /" "}
-            cd ${{ github.workspace }}            
+            cd ${{ github.workspace }}
+            echo ${{ secrets.TEST_SECTET }}      
           fi
       - name: Get branch name
         id: branch-name
@@ -51,4 +52,4 @@ jobs:
           author_email: "gjssbot@adobe.com"
           author_name: "github-jira-sync-bot"
           branch: ${{ steps.branch-name.outputs.base_ref_branch }}
-          github_token: ${{ secrets.GJSSBOT }}    
+          github_token: ${{ secrets.GJSSBOT }}
