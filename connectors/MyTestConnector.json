@@ -1,13 +1,20 @@
 {
     "name": "MyTestConnector",
-    "version": "0.0.1",    
+    "version": "0.0.2",    
     "author": "vzaets",
     "description": "Super test connector",
+    "variables": {
+        "BASE_URL": {
+            "name": "BASE_URL",
+            "description": "Base url for connector",
+            "type": "string"
+        }
+    },
     "provider":  {
         "name": "IoRuntimeExtensionFieldSecondApi",
         "handler": {
           "JsonSchema": {
-            "baseUrl": "https://283976-897apricotshrimp-stage.adobeioruntime.net/api/v1/web/897ApricotShrimp-0.0.1",
+            "baseUrl": "${BASE_URL}",
             "operations": [
               {
                 "path": "/product-complex-attribute",
