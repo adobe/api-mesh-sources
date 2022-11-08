@@ -1,0 +1,29 @@
+{
+    "name": "DemoSource",
+    "version": "0.0.1",    
+    "author": "vzaets",
+    "description": "DemoSource",
+    "provider":  {
+        "name": "IoRuntimeExtensionFieldSecondApi",
+        "handler": {
+          "JsonSchema": {
+            "baseUrl": "https://283976-897apricotshrimp-stage.adobeioruntime.net/api/v1/web/897ApricotShrimp-0.0.1",
+            "operations": [
+              {
+                "path": "/product-complex-attribute",
+                "responseSchema": "./product-extension-complex-field.json",
+                "type": "Query",
+                "field": "product_extension_complex_attribute",
+                "method": "GET"
+              }
+            ]
+          }
+        }
+    },
+    "files": [
+        {
+          "path": "./product-extension-complex-field.json",
+          "content": "{\"$ref\": \"#/definitions/IoRuntimeComplexProductExtension\",\"definitions\": {\"IoRuntimeComplexProductExtension\": {\"type\": \"object\",\"title\": \"Complex product extension\",\"description\": \"Complex product extension field\",\"properties\": {\"fieldA\": {\"type\": \"string\"},\"fieldB\": {\"type\": \"string\"}}}}}"
+        }
+      ]
+  }
