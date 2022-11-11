@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "author": "lradu",
   "description": "Adobe Commerce Catalog Service",
+  "variables": {
+    "CATALOG_SERVICE_API_KEY": {
+      "name": "Catalog Service API Key",
+      "description": "This API Key will be used to access Catalog Service",
+      "type": "string"
+    }
+  },
   "provider": {
     "name": "CommerceCatalogServiceGraph",
     "handler": {
