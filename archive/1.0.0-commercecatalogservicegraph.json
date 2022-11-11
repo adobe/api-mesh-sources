@@ -3,6 +3,13 @@
   "version": "1.0.0",
   "author": "lradu",
   "description": "Adobe Commerce Catalog Service",
+  "variables": {
+    "CATALOG_SERVICE_API_KEY": {
+      "name": "Catalog Service API Key",
+      "description": "This API Key will be used to access Catalog Service",
+      "type": "string"
+    }
+  },
   "provider": {
     "name": "CommerceCatalogServiceGraph",
     "handler": {
@@ -14,10 +21,10 @@
           "Magento-Store-Code": "{context.headers['magento-store-code']}",
           "Magento-Store-View-Code": "{context.headers['magento-store-view-code']}",
           "Magento-Customer-Group": "{context.headers['magento-customer-group']}",
-          "x-api-key": "{context.headers['x-api-key']}"
+          "x-api-key": "${CATALOG_SERVICE_API_KEY}"
         },
         "schemaHeaders": {
-          "x-api-key":  "{context.headers['x-api-key']}"
+          "x-api-key":  "${CATALOG_SERVICE_API_KEY}"
         }
       }
     }
