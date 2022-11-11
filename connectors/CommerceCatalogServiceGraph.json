@@ -14,10 +14,10 @@
           "Magento-Store-Code": "{context.headers['magento-store-code']}",
           "Magento-Store-View-Code": "{context.headers['magento-store-view-code']}",
           "Magento-Customer-Group": "{context.headers['magento-customer-group']}",
-          "x-api-key": "{context.headers['x-api-key']}"
+          "x-api-key": "${CATALOG_SERVICE_API_KEY}"
         },
         "schemaHeaders": {
-          "x-api-key":  "{context.headers['x-api-key']}"
+          "x-api-key":  "${CATALOG_SERVICE_API_KEY}"
         }
       }
     }
